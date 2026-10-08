@@ -1,36 +1,36 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-import joblib
 
-print("=" * 60)
-print("FEATURE SCALING")
-print("=" * 60)
+# ============================================
+# LOAD TRAINING AND TEST DATA
+# ============================================
 
-# Load train and test data
 X_train = pd.read_csv("X_train.csv")
 X_test = pd.read_csv("X_test.csv")
 
-y_train = pd.read_csv("y_train.csv")
-y_test = pd.read_csv("y_test.csv")
-
-# Convert target to Series
-y_train = y_train.iloc[:, 0]
-y_test = y_test.iloc[:, 0]
-
-print("Before scaling:")
+print("Original shapes:")
 print("X_train:", X_train.shape)
 print("X_test :", X_test.shape)
 
-# Create scaler
+
+# ============================================
+# FEATURE SCALING
+# ============================================
+
 scaler = StandardScaler()
 
+# IMPORTANT:
 # Fit ONLY on training data
 X_train_scaled = scaler.fit_transform(X_train)
 
 # Use the same scaler for test data
 X_test_scaled = scaler.transform(X_test)
 
-# Convert back to DataFrame
+
+# ============================================
+# CONVERT TO DATAFRAME
+# ============================================
+
 X_train_scaled = pd.DataFrame(
     X_train_scaled,
     columns=X_train.columns
@@ -41,23 +41,33 @@ X_test_scaled = pd.DataFrame(
     columns=X_test.columns
 )
 
-# Save scaled features
-X_train_scaled.to_csv("X_train_scaled.csv", index=False)
-X_test_scaled.to_csv("X_test_scaled.csv", index=False)
 
-# Save targets unchanged
-y_train.to_csv("y_train_scaled.csv", index=False)
-y_test.to_csv("y_test_scaled.csv", index=False)
+# ============================================
+# CHECK RESULTS
+# ============================================
 
-# Save scaler
-joblib.dump(scaler, "scaler.pkl")
+print("\n====================================")
+print("FEATURE SCALING RESULTS")
+print("====================================")
 
-print("\nAfter scaling:")
-print("X_train_scaled:", X_train_scaled.shape)
-print("X_test_scaled :", X_test_scaled.shape)
+print("X_train_scaled shape:", X_train_scaled.shape)
+print("X_test_scaled shape :", X_test_scaled.shape)
 
-print("\nTarget:")
-print("y_train:", y_train.shape)
-print("y_test :", y_test.shape)
+print("\nFirst 5 rows of scaled training data:")
+print(X_train_scaled.head())
 
-print("\nScaling completed successfully!")
+print("\nMean of first 5 scaled features:")
+print(X_train_scaled.iloc[:, :5].mean())
+
+print("\nStandard deviation of first 5 scaled features:")
+print(X_train_scaled.iloc[:, :5].std())
+
+
+# ============================================
+# SAVE SCALED DATA
+# ============================================
+
+X_train_scaled.to_csv("../X_train_scaled.csv", index=False)
+X_test_scaled.to_csv("../X_test_scaled.csv", index=False)
+
+print("\nFiles saved successfully.")

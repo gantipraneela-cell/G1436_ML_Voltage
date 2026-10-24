@@ -1,0 +1,23 @@
+EXTREME VOLTAGE SOURCE AUDIT
+
+1. Mg0-0.5BaVS3
+Reported voltage: -2.40267182 V
+Status: Matches inspected source energies.
+
+2. Li0-3Mn5OF11
+Reported voltage: 10.62304985 V
+Status: Matches embedded source energies.
+
+3. Li0.33-0.67FeO2
+Reported voltage: 12.29607955 V
+Status: Matches embedded source energies.
+Previous discrepancy resulted from comparing different energy entries.
+
+4. Li1-3Ti2(PO4)3
+Reported voltage: 33.06577116 V
+Status: Matches embedded source energies.
+
+Scope: Numerical source-energy consistency only.
+Dataset modified: No
+SVR retrained: No
+Physical validity: Not established by this audit alone.
